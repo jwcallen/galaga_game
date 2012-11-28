@@ -1,0 +1,199 @@
+#include"animation.h"
+
+int main(int argc, char* argv[])
+{
+	SDL_Surface *screen, *temp, *sprite, *grass;
+	SDL_Rect rcGrass;
+	int colorkey, initmove;
+
+	/* initialize SDL */
+	SDL_Init(SDL_INIT_VIDEO);
+
+	/* set the title bar */
+	SDL_WM_SetCaption("SDL Animation", "SDL Animation");
+
+	/* create window */
+	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 0, SDL_HWSURFACE||SDL_DOUBLEBUF);
+
+	/* set keyboard repeat */
+	SDL_EnableKeyRepeat(70, 70);
+
+	/* load sprite */
+	temp   = SDL_LoadBMP("sprite2.bmp");
+	sprite = SDL_DisplayFormat(temp);
+	SDL_FreeSurface(temp);
+
+	/* setup sprite colorkey and turn on RLE */
+	colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
+	SDL_SetColorKey(sprite, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+
+	/* load grass */
+	temp  = SDL_LoadBMP("grass.bmp");
+	grass = SDL_DisplayFormat(temp);
+	SDL_FreeSurface(temp);
+
+	/* set sprite position */
+	rcSprite.x = 64;
+	rcSprite.y = 64;
+
+	/* set animation frame */
+	rcSrc.x = 0;
+	rcSrc.y = 0;
+	rcSrc.w = SPRITE_SIZE;
+	rcSrc.h = SPRITE_SIZE;
+
+	gameover = 0;
+
+	/* message pump */
+	while (!gameover)
+	{
+		SDL_Event event;
+		
+		/* look for an event */
+		if (SDL_PollEvent(&event))
+		{
+			HandleEvent(event);
+		}
+		if (direction)
+			{
+				if (initmove)
+				{
+					movdir = direction;
+					initmove = 0;
+					switch (movdir)
+					{
+						case SDLK_LEFT:
+							coord = &rcSprite.x;
+							sign = 0;
+							start = rcSprite.x - 16;
+							break;
+						case SDLK_RIGHT:
+							coord = &rcSprite.x;
+							sign = 1;
+							start = rcSprite.x + 16;
+							break;
+						case SDLK_UP:
+							coord = &rcSprite.y;
+							sign = 0;
+							start = rcSprite.y - 16;
+							break;
+						case SDLK_DOWN:
+							coord = &rcSprite.y;
+							sign = 1;
+							start = rcSprite.y + 16;
+						break;
+					}
+					
+				}
+				if (frame%5==0)
+			{
+				switch (movdir)
+				{
+					
+					case SDLK_LEFT:
+						if (rcSrc.y == 224) rcSrc.y = 256;
+						else rcSrc.y = 224;
+						break;
+					case SDLK_RIGHT:
+						if (rcSrc.y == 288) rcSrc.y = 320;
+						else rcSrc.y = 288;
+						break;
+					case SDLK_UP:
+						if ( rcSrc.y == 96 ) rcSrc.y = 128;
+						else rcSrc.y = 96;
+						break;
+					case SDLK_DOWN:
+						if ( rcSrc.y == 160 ) rcSrc.y = 192;
+						else rcSrc.y = 160;
+					break;
+				}
+			}
+				if (*coord == start) 
+				{
+					printf("[F:%d]", frame);
+					keystate = SDL_GetKeyState(NULL);
+
+					if (keystate[movdir])
+					{
+						if(sign) start = (*coord) + 16;//(int)(time_factor);
+						else start = (*coord) - 16;//(int)(time_factor);
+					}else
+					{
+					switch(movdir)
+					{
+						//case SDLK_LEFT: rcSrc.y = 64; break;
+						//case SDLK_RIGHT: rcSrc.y = 352; break;
+						//case SDLK_UP: rcSrc.y = 32; break;
+						//case SDLK_DOWN: rcSrc.y = 0; break;
+						
+					}
+						initmove = 1;
+						direction = 0;
+					}
+				}
+				if (direction)
+				{
+					if(sign) (*coord) += (1*MOVE_SPEED);//(int)(time_factor);
+					else (*coord) -= (1*MOVE_SPEED);//(int)(time_factor);
+				}
+			}
+				
+
+		/* collide with edges of screen */
+		if (rcSprite.x < 0)
+		{
+			rcSprite.x = 0;
+			start =0;
+		}
+		if (rcSprite.x > SCREEN_WIDTH - SPRITE_SIZE) 
+		{
+			rcSprite.x = SCREEN_WIDTH - SPRITE_SIZE;
+			start = SCREEN_WIDTH - SPRITE_SIZE;
+		}
+
+		if (rcSprite.y < 0)
+		{
+			rcSprite.y = 0;
+			start = 0;
+		}
+		if (rcSprite.y > SCREEN_HEIGHT - SPRITE_SIZE) 
+		{
+			rcSprite.y = SCREEN_HEIGHT - SPRITE_SIZE;
+			start = SCREEN_HEIGHT - SPRITE_SIZE;
+		}
+
+		/* draw the grass */
+		for (int x = 0; x < SCREEN_WIDTH / SPRITE_SIZE; x++) 
+		{
+			for (int y = 0; y < SCREEN_HEIGHT / SPRITE_SIZE; y++)
+			{
+				rcGrass.x = x * SPRITE_SIZE;
+				rcGrass.y = y * SPRITE_SIZE;
+				SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+			}
+		}
+
+		/* draw the sprite */
+		SDL_BlitSurface(sprite, &rcSrc, screen, &rcSprite);
+
+		
+		/* update the screen */
+		//SDL_UpdateRect(screen, 0, 0, 0, 0);
+		SDL_Flip(screen);
+
+		endtime = SDL_GetTicks() - start_time;
+		if( (CAP) && ( (endtime) < 1000 / FPS) ) 
+		{
+			SDL_Delay( ( 1000 / FPS ) - endtime ); 
+		}
+		else
+		{
+			printf("<noTime>");
+		}
+
+		if (frame++ == FPS)
+		{
+			frame = 0;
+			printf("finish frame");
+		}
+	}
