@@ -90,10 +90,9 @@ int main()
 			SDL_BlitSurface(grass, &rcSrc_Grass, screen, &rcGrass);
 		}
 	}
-
+	int i = 0;
 	for (i = 0; i<2; i++){
-		//if npc
-		//	metamove npc
+		npc_move(&demo[i]);
 		animate(&demo[i]);
 		move(&demo[i]);
 

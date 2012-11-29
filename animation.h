@@ -1,10 +1,10 @@
 #ifndef ANIMATION_H_
 #define ANIMATION_H_
 #include<SDL.h>
-#include"npc.h"
 
 
 enum cardinal {north, south, east, west};
+enum move_script {circle, square, standing};
 
 typedef struct
 {
@@ -20,6 +20,13 @@ typedef struct
 	SDLKey direction;
 	int position[2];
 } movabal;
+
+typedef struct{
+	move_script script;
+	unsigned int stage;
+	unsigned int config[8];
+} ai;
+
 
 typedef struct
 {
@@ -43,14 +50,6 @@ typedef struct
 	ai intel;	
 	
 } animal;
-
-enum move_script {circle, square, standing};
-
-typedef struct{
-	move_script script;
-	unsigned int stage;
-	unsigned int config[8];
-} ai;
 
 void animate(animal*);
 void move(animal*);
