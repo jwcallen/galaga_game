@@ -1,7 +1,5 @@
 #include"object.h"
 
-tile[][] map;
-
 enum Graphic
 {
 	//List of Graphics

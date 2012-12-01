@@ -27,6 +27,13 @@ typedef struct{
 	unsigned int config[8];
 } ai;
 
+typedef struct{
+	//interaction
+} interactor;
+
+typedef struct{
+	//item info
+} informatel;
 
 typedef struct
 {
