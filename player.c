@@ -1,11 +1,11 @@
 #include"player.h"
 animal* playermove;
 void player_setup(animal* x)
-{	
+{
 	playermove = x;
 	playermove->fps = 200;
 	playermove->cur_frame = 0;
-	playermove->inc_frame = 1;	
+	playermove->inc_frame = 1;
 	playermove->tim_frame = 0;
 	strcpy(playermove->image, "player.png");
 	playermove->left[0] = 64;
@@ -24,13 +24,13 @@ void player_setup(animal* x)
 	playermove->move.tim_step = 0;
 	playermove->move.inc_step = 1;
 	playermove->move.moving = false;
-}	
+}
 void player_move(SDLKey key)
-{	
+{
 	if (playermove->move.moving) return;
 	playermove->move.direction = key;
 	playermove->move.moving = true;
 	playermove->move.sign = get_sign(key);
-	playermove->move.distance = 16; 
+	playermove->move.distance = 16;
 }
-	
+
