@@ -64,11 +64,11 @@ void handle_event(SDL_Event* event)
 bool key_pressed(SDLKey x)
 {
 	return (bool)keystate[x];
-}	
+}
 
 void game_quit()
 {
-	
+
 	/* clean up */
 	SDL_Quit();
 

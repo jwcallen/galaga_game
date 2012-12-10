@@ -54,8 +54,8 @@ typedef struct
 	char image[20];
 	int left[3], right[3], up[3], down[3];
 	movabal move;
-	ai intel;	
-	
+	ai intel;
+
 } animal;
 
 void animate(animal*);
@@ -63,4 +63,4 @@ void move(animal*);
 SDLKey redirect_key(SDLKey);
 int get_axis(SDLKey);
 int get_sign(SDLKey);
-#endif	
+#endif

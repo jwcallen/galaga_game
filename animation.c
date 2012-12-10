@@ -8,7 +8,7 @@ void animate(animal* x)
 	if (!x->move.moving) {x->cur_frame = 0; return;}
 
 	if (x->tim_frame + x->fps > SDL_GetTicks()) return;
-	
+
 	x->tim_frame = SDL_GetTicks();
 	if (x->cur_frame == 2) x->cur_frame = 1; else x->cur_frame += x->inc_frame;
 }
@@ -60,7 +60,8 @@ int get_sign(SDLKey key)
 			return 1;
 		break;
 	}
-}	
+}
+
 int get_axis(SDLKey key)
 {
 	switch(key)
