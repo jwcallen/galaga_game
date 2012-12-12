@@ -11,10 +11,10 @@ The demo demonstrates the power of the framework using art assets ripped from va
 the animation and movement handling on two actors, an npc moving in a circle and a player character.
 
 ##controls
-	movement
+movement
 	arrowkeys
 	
-	quit
+quit
 	q
 
 ##todo
