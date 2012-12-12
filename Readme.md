@@ -17,6 +17,10 @@ the animation and movement handling on two actors, an npc moving in a circle and
 	quit:
 	q
 
+##requirements
+You must have libsdl-dev in order to compile the program. If you are running Ubuntu 12.04 you will be unable to compile because of an 
+incompatibility with the latest 12.04 xlib package. For Ubuntu >12.04 you can follow the tutorial listed [here](http://ubuntu-gamedev.wikispaces.com/How-To+Setup+SDL+for+games+development).
+
 ##todo
 1. The next feature to implement is a map based movement wrapper so that obstruction detection is possible. This will allow for a great
 deal of code cleanup and restructuring.
