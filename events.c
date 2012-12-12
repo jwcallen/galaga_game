@@ -4,10 +4,14 @@
 #include"animation.h"
 
 Uint8 *keystate;
+
 void events_setup()
 {
 	keystate = SDL_GetKeyState(NULL);
 }
+
+//Function handles event passed to it
+//Determines cause of event and acts accordingly
 void handle_event(SDL_Event* event)
 {
 	switch(event->type)
@@ -61,11 +65,14 @@ void handle_event(SDL_Event* event)
 	}
 }
 
+//Arguments: SDLKey
+//Returns: State of the key: true or false
 bool key_pressed(SDLKey x)
 {
 	return (bool)keystate[x];
 }
 
+//Function to handle quitting of the game
 void game_quit()
 {
 
