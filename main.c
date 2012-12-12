@@ -49,7 +49,7 @@ void demo_setup()
 	colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
 	SDL_SetColorKey(sprite, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
 
-	temp  = SDL_LoadBMP("grass.bmp");
+	temp  = SDL_LoadBMP("map.bmp");
 	grass = SDL_DisplayFormat(temp);
 	SDL_FreeSurface(temp);
 
@@ -63,8 +63,8 @@ void demo_setup()
 
 	rcSrc_Grass.x = 0;
 	rcSrc_Grass.y = 0;
-	rcSrc_Grass.w = SPRITE_SIZE;
-	rcSrc_Grass.h = SPRITE_SIZE;
+	rcSrc_Grass.w = 640;
+	rcSrc_Grass.h = 480;
 }
 
 int main()
@@ -80,7 +80,7 @@ int main()
 	{
 		handle_event(&event);
 	}
-	
+/*	
 	//Set up screen and background display
 	for (int x = 0; x < SCREEN_WIDTH / SPRITE_SIZE; x++) 
 	{
@@ -91,7 +91,8 @@ int main()
 			SDL_BlitSurface(grass, &rcSrc_Grass, screen, &rcGrass);
 		}
 	}
-	
+*/
+SDL_BlitSurface(grass, &rcSrc_Grass, screen, &rcGrass);	
 	//Handle character movement
 	int i = 0;
 	for (i = 0; i<2; i++){
