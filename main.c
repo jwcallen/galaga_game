@@ -80,7 +80,8 @@ int main()
 	{
 		handle_event(&event);
 	}
-
+	
+	//Set up screen and background display
 	for (int x = 0; x < SCREEN_WIDTH / SPRITE_SIZE; x++) 
 	{
 		for (int y = 0; y < SCREEN_HEIGHT / SPRITE_SIZE; y++)
@@ -90,6 +91,8 @@ int main()
 			SDL_BlitSurface(grass, &rcSrc_Grass, screen, &rcGrass);
 		}
 	}
+	
+	//Handle character movement
 	int i = 0;
 	for (i = 0; i<2; i++){
 		npc_move(&demo[i]);
@@ -139,7 +142,6 @@ int main()
 			break;
 		}
 */
-	
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
 	endtime = SDL_GetTicks()-start_time;
 	if (1000/FPS > endtime) SDL_Delay((1000/FPS)-endtime);
